@@ -1,32 +1,25 @@
-import tkinter as tk
 from tkinter import ttk
-
 
 class View(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
 
-        # Create widgets
-        # label
-        self.label = ttk.Label(self, text="Email:")
-        self.label.grid(row=1, column=0)
-
-        # email entry
-        self.email_var = tk.StringVar()
-        self.email_entry = ttk.Entry(self, textvariable=self.email_var, width=30)
-        self.email_entry.grid(row=1, column=1, sticky=tk.NSEW)
-
-        # save button
-        self.save_button = ttk.Button(self, text='Save', command=self.save_button_clicked)
-        self.save_button.grid(row=1, column=3, padx=10)
-
-        # message
-        self.message_label = ttk.Label(self, text='', foreground='red')
-        self.message_label.grid(row=2, column=1, sticky=tk.W)
-
         # Create widgets for audio player
+        # play button
         self.play_button = ttk.Button(self, text='Play', command=self.play_button_clicked)
-        self.play_button.grid(row=3, column=1)
+        self.play_button.grid(row=1)
+
+        # stop button
+        self.stop_button = ttk.Button(self, text='Stop', command=self.stop_button_clicked)
+        self.stop_button.grid(row=3, column=1)
+
+        # pause button
+        self.pause_button = ttk.Button(self, text='Pause', command=self.pause_button_clicked)
+        self.pause_button.grid(row=3, column=2)
+
+        # unpause button
+        self.pause_button = ttk.Button(self, text='Unpause', command=self.unpause_button_clicked)
+        self.pause_button.grid(row=3, column=3)
 
         # Controller
         self.controller = None
@@ -39,49 +32,34 @@ class View(ttk.Frame):
         """
         self.controller = controller
 
-    def save_button_clicked(self):
-        """
-        Handle button click event
-        :return:
-        """
-        if self.controller:
-            self.controller.save(self.email_var.get())
-    
-    def show_error(self, message):
-        """
-        Show an error message
-        :param message:
-        :return:
-        """
-        self.message_label['text'] = message
-        self.message_label['foreground'] = 'red'
-        self.message_label.after(3000, self.hide_message)
-        self.email_entry['foreground'] = 'red'
-    
-    def show_success(self, message):
-        """
-        Show a success message
-        :param message:
-        :return:
-        """
-        self.message_label['text'] = message
-        self.message_label['foreground'] = 'green'
-        self.message_label.after(3000, self.hide_message)
-
-        # Reset the form
-        self.email_entry['foreground'] = 'black'
-        self.email_var.set('')
-
-    def hide_message(self):
-        """
-        Hide the message
-        :return:
-        """
-        self.message_label['text'] = ''
-
     def play_button_clicked(self):
         """
         Handle play button event
+        :return:
         """
         if self.controller:
             self.controller.play_music()
+    
+    def stop_button_clicked(self):
+        """
+        Handle stop button event
+        :return:
+        """
+        if self.controller:
+            self.controller.stop_music()
+
+    def pause_button_clicked(self):
+        """
+        Handle pause button event
+        :return:
+        """
+        if self.controller:
+            self.controller.pause_music()
+
+    def unpause_button_clicked(self):
+        """
+        Handle unpause button event
+        :return:
+        """
+        if self.controller:
+            self.controller.unpause_music()

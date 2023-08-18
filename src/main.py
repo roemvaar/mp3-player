@@ -2,6 +2,7 @@ import tkinter as tk
 from model import Model
 from view import View
 from controller import Controller
+from pygame import mixer
 
 
 class App(tk.Tk):
@@ -9,9 +10,12 @@ class App(tk.Tk):
         super().__init__()
 
         self.title('MP3 Player App')
+        self.geometry("920x600+290+85")
+        self.configure(background='#212121')
+        self.resizable(False, False)
 
         # Create a model
-        model = Model('example@yummy.com')
+        model = Model()
 
         # Create a view and place it on the root window
         view = View(self)
@@ -19,6 +23,8 @@ class App(tk.Tk):
 
         # Create a controller
         controller = Controller(model, view)
+
+        mixer.init()
 
         # Set the controller to view
         view.set_controller(controller)

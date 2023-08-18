@@ -1,4 +1,4 @@
-from playsound import playsound
+from pygame import mixer
 
 
 class Controller:
@@ -6,28 +6,31 @@ class Controller:
         self.model = model
         self.view = view
 
-    def save(self, email):
-        """
-        Save the email
-        :param email:
-        :return:
-        """
-        try:
-            # Save the model
-            self.model.email = email
-            self.model.save()
-
-            # Show a success message
-            self.view.show_success(f'The email {email} saved!')
-
-        except ValueError as error:
-            # Show an error message
-            self.view.show_error(error)
-    
     def play_music(self):
         """
         Play music
         :return:
         """
-        print("controller: Play Buttone CLICKED!")
-        playsound('music/Bad_Bunny_WHERE_SHE_GOES.mp3')
+        if self.model:
+            mixer.music.load("music/Bad_Bunny_WHERE_SHE_GOES.mp3")
+            mixer.music.play()
+
+    def stop_music(self):
+        """
+        Stop music
+        :return:
+        """
+        if self.model:
+            mixer.music.pause()
+
+    def pause_music(self):
+        """
+        Temporarily stop playback of all sound channels
+        """
+        mixer.music.pause()
+
+    def unpause_music(self):
+        """
+        Temporarily stop playback of all sound channels
+        """
+        mixer.music.unpause()
