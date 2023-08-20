@@ -11,15 +11,24 @@ class View(ttk.Frame):
 
         # stop button
         self.stop_button = ttk.Button(self, text='Stop', command=self.stop_button_clicked)
-        self.stop_button.grid(row=3, column=1)
+        self.stop_button.grid(row=2, column=1)
 
         # pause button
         self.pause_button = ttk.Button(self, text='Pause', command=self.pause_button_clicked)
-        self.pause_button.grid(row=3, column=2)
+        self.pause_button.grid(row=2, column=2)
 
         # unpause button
-        self.pause_button = ttk.Button(self, text='Unpause', command=self.unpause_button_clicked)
-        self.pause_button.grid(row=3, column=3)
+        self.unpause_button = ttk.Button(self, text='Unpause', command=self.unpause_button_clicked)
+        self.unpause_button.grid(row=2, column=3)
+
+        # add song button
+        self.add_song_button = ttk.Button(self, text='Add song', command=self.add_song_clicked)
+        self.add_song_button.grid(row=3)
+
+        # Create widgets for song details
+        # current playing song
+        self.current_playing_text = ttk.Label(self, text='Playing song: ')
+        self.current_playing_text.grid(row=4)
 
         # Controller
         self.controller = None
@@ -40,6 +49,13 @@ class View(ttk.Frame):
         if self.controller:
             self.controller.play_music()
     
+    def show_current_playing_song(self, song):
+        """
+        Show current playing song
+        :return:
+        """
+        self.current_playing_text['text'] = "Playing song: " + str(song)
+
     def stop_button_clicked(self):
         """
         Handle stop button event
@@ -63,3 +79,11 @@ class View(ttk.Frame):
         """
         if self.controller:
             self.controller.unpause_music()
+    
+    def add_song_clicked(self):
+        """
+        Handle add song button event
+        :return:
+        """
+        if self.controller:
+            self.controller.add_song()

@@ -1,4 +1,5 @@
 from pygame import mixer
+import eyed3
 
 
 class Controller:
@@ -12,7 +13,9 @@ class Controller:
         :return:
         """
         if self.model:
-            mixer.music.load("music/Bad_Bunny_WHERE_SHE_GOES.mp3")
+            audiofile = eyed3.load(self.model.currently_playing)
+            self.view.show_current_playing_song(audiofile)
+            mixer.music.load(self.model.currently_playing)
             mixer.music.play()
 
     def stop_music(self):
@@ -34,3 +37,9 @@ class Controller:
         Temporarily stop playback of all sound channels
         """
         mixer.music.unpause()
+    
+    def add_song(self):
+        """
+        Add song from user library
+        """
+        print("Added succesfuly")
