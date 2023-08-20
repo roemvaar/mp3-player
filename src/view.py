@@ -23,7 +23,11 @@ class View(ttk.Frame):
 
         # add song button
         self.add_song_button = ttk.Button(self, text='Add song', command=self.add_song_clicked)
-        self.add_song_button.grid(row=3)
+        self.add_song_button.grid(row=3, column=1)
+
+        # songs in library button
+        self.songs_in_library_button = ttk.Button(self, text='Songs in your library...', command=self.songs_in_library_clicked)
+        self.songs_in_library_button.grid(row=3, column=2)
 
         # Create widgets for song details
         # current playing song
@@ -87,3 +91,11 @@ class View(ttk.Frame):
         """
         if self.controller:
             self.controller.add_song()
+    
+    def songs_in_library_clicked(self):
+        """
+        Handle display songs button event
+        :return:
+        """
+        if self.controller:
+            self.controller.display_available_songs()

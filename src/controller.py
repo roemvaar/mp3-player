@@ -1,5 +1,7 @@
 from pygame import mixer
 import eyed3
+from tkinter.filedialog import askopenfile
+import shutil
 
 
 class Controller:
@@ -42,4 +44,15 @@ class Controller:
         """
         Add song from user library
         """
-        print("Added succesfuly")
+        filename = askopenfile()
+        shutil.copy(filename.name, "/home/roemvaar/repos/mp3-player/music/")
+
+    def display_available_songs(self):
+        """
+        Display available songs from user library
+        """
+        if self.model:
+            print("Show available songs")
+            filename = askopenfile()
+            self.model.set_currently_playing_song(filename.name)
+            print(self.model.currently_playing)
